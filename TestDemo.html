@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="js/vue.js"></script>
+</head>
+<body>
+<div id="app">
+    <fieldset>
+        <legend>create person</legend>
+        <div>
+            <label>Name:</label>
+            <input type="text" v-model="newPerson.name">
+            <label>Age:</label>
+            <input type="text" v-model="newPerson.age">
+            <label>Sex:</label>
+            <select v-model="newPerson.sex">
+                <option value="男">男</option>
+                <option value="女">女</option>
+            </select>
+            <input type="button" value="创建" @click="createPerson">
+        </div>
+        <div>
+            <table>
+                <thead>
+                <tr>
+                    <th>姓名</th>
+                    <th>年龄</th>
+                    <th>性别</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr v-for="people in person">
+                    <td v-text="people.name"></td>
+                    <td v-text="people.age"></td>
+                    <td v-text="people.sex"></td>
+                    <td><input type="button" value="删除" @click="deletePerson($index)"></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </fieldset>
+</div>
+<script>
+    new Vue({
+        el: "#app",
+        data: {
+            newPerson: {
+                name: '',
+                age: 0,
+                sex: '男'
+            },
+            person: [
+                {
+                    name: 'lee',
+                    age: 27,
+                    sex: '男'
+                }
+            ]
+        },
+        methods: {
+            createPerson: function () {
+                this.person.push(this.newPerson);
+                this.newPerson = {
+                    name: '',
+                    age: 0,
+                    sex: '男'
+                }
+            },
+            deletePerson:function(index){
+                this.person.splice(index,1);
+            }
+        }
+    });
+</script>
+</body>
+</html>
